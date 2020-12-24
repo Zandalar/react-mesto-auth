@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Register({ onSubmit }) {
   return (
@@ -22,10 +23,10 @@ function Register({ onSubmit }) {
           required
         />
       </form>
-      <button className='login__button' id='login__submit-button' type='submit'>Зарегистрироваться</button>
+      <button className='register__button' id='login__submit-button' type='submit'>Зарегистрироваться</button>
       <p className='register__subtitle'>
-        Уже зарегистрированы?
-        <a className='register__link' href='/sign-in'>Войти</a>
+        Уже зарегистрированы?&ensp;
+        <Link to='/sign-in' className='register__link'>Войти</Link>
       </p>
     </div>
   )

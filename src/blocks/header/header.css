@@ -1,7 +1,10 @@
 @import url(./__logo/header__logo.css);
+@import url(./__link/header__link.css);
 
 .header {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 68.90625%;
     border-bottom: 1px solid #545454;
 }

@@ -11,3 +11,5 @@
 @import url(./blocks/main/main.css);
 @import url(./blocks/content/content.css);
 @import url(./blocks/preloader/preloader.css);
+@import url(./blocks/login/login.css);
+@import url(./blocks/register/register.css);
