@@ -18,7 +18,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading, isolatePo
 
   return (
     <PopupWithForm
-      name='profile'
+      name='avatar'
       title='Редактировать профиль'
       buttonText={`${isLoading ? 'Сохранение...' : 'Сохранить'}`}
       isOpen={isOpen}

@@ -13,6 +13,8 @@ import DeletionCardPopup from './DeletionCardPopup';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
+import * as auth from '../utils/Auth';
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -20,12 +22,16 @@ function App() {
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 	const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
 	const [isDeletionCardPopupOpen, setIsDeletionCardPopupOpen] = React.useState(false);
+	const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 	const [selectedCard, setSelectedCard] = React.useState({});
 	const [currentUser, setCurrentUser] = React.useState({});
 	const [cards, setCards] = React.useState([]);
 
 	const [loggedIn, setLoggedIn] = React.useState(false);
+	const [status, setStatus] = React.useState(false);
+  const [email, setEmail] = React.useState({});
+  const history = useHistory();
 
 	function handleCardLike(card) {
     const isLiked = card.likes.some(item => item._id === currentUser._id);
@@ -125,11 +131,32 @@ function App() {
 		setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
     setIsDeletionCardPopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
 		setSelectedCard({});
 	}
 
   function isolatePopup(evt) {
     evt.stopPropagation();
+  }
+
+  function handleRegister(email, password) {
+	  auth.register(email, password)
+      .then((data) => {
+        setEmail({
+          email: data.email,
+        })
+        history.push('/sign-in');
+      })
+      .then(() => {
+        setStatus(true);
+      })
+      .catch((err) => {
+        setStatus(false)
+        console.log(new Error(err.status))
+      })
+      .finally(() => {
+        setIsInfoTooltipPopupOpen(true)
+      })
   }
 
   React.useEffect(() => {
@@ -143,7 +170,7 @@ function App() {
 	  <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="content">
-          <Header />
+          <Header userEmail={email}/>
           <Switch>
             <Route exact path='/'>
               <ProtectedRoute
@@ -160,9 +187,9 @@ function App() {
               />
             </Route>
             <Route path='/sign-up'>
-              <Register onSubmit={handleAddPlaceSubmit}/>
+              <Register onRegister={handleRegister}/>
             </Route>
-            <Route path='/sign-in' onSubmit={handleAddPlaceSubmit}>
+            <Route path='/sign-in'>
               <Login />
             </Route>
             <Route exact path='/'>
@@ -205,6 +232,12 @@ function App() {
             card={selectedCard}
             isLoading={isLoading}
             isolatePopup={isolatePopup}
+          />
+          <InfoTooltip
+            isOpen={isInfoTooltipPopupOpen}
+            onClose={closeAllPopups}
+            isolatePopup={isolatePopup}
+            status={status}
           />
         </div>
       </div>

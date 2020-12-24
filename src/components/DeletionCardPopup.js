@@ -11,7 +11,7 @@ function DeletionCardPopup({ isOpen, onClose, handleSubmit, card, isLoading, iso
 
   return (
     <PopupWithForm
-      name='profile'
+      name='delete'
       title='Вы уверены?'
       buttonText={`${isLoading ? 'Удаление...' : 'Да'}`}
       isOpen={isOpen}

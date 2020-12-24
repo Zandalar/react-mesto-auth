@@ -1,0 +1,41 @@
+export const BASE_URL = 'https://auth.nomoreparties.co';
+
+export function checkAnswer(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(new Error(res.status))
+}
+
+export function register(email, password) {
+  return fetch(`${BASE_URL}/sign-up`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({email, password})
+  })
+    .then(checkAnswer);
+}
+
+export function authorization(email, password) {
+  return fetch(`${BASE_URL}/sign-in`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({email, password})
+  })
+    .then(checkAnswer);
+}
+
+export function checkToken(jwt) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization" : `Bearer ${jwt}`
+    }
+  })
+    .then(checkAnswer);
+}
