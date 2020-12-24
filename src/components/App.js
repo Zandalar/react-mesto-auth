@@ -30,7 +30,7 @@ function App() {
 
 	const [loggedIn, setLoggedIn] = React.useState(false);
 	const [status, setStatus] = React.useState(false);
-  const [email, setEmail] = React.useState({});
+  const [email, setEmail] = React.useState('');
   const history = useHistory();
 
 	function handleCardLike(card) {
@@ -174,8 +174,8 @@ function App() {
           <Switch>
             <Route exact path='/'>
               <ProtectedRoute
-              loggedIn={loggedIn}
               component={Main}
+              loggedIn={loggedIn}
               cards={cards}
               onCardLike={handleCardLike}
               onCardDelete={handleDeletionCardClick}
