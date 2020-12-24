@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
 import Header from './Header';
@@ -9,6 +10,9 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeletionCardPopup from './DeletionCardPopup';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -140,16 +144,31 @@ function App() {
       <div className="page">
         <div className="content">
           <Header />
-          <Main
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleDeletionCardClick}
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            isLoading={isLoading}
-          />
+          <Switch>
+            <Route exact path='/'>
+              <ProtectedRoute
+              loggedIn={loggedIn}
+              component={Main}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleDeletionCardClick}
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              isLoading={isLoading}
+              />
+            </Route>
+            <Route path='/sign-up'>
+              <Register onSubmit={handleAddPlaceSubmit}/>
+            </Route>
+            <Route path='/sign-in' onSubmit={handleAddPlaceSubmit}>
+              <Login />
+            </Route>
+            <Route exact path='/'>
+              { loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+            </Route>
+          </Switch>
           <Footer />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
