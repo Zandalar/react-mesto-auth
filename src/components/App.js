@@ -27,16 +27,10 @@ function App() {
 	const [selectedCard, setSelectedCard] = React.useState({});
 	const [currentUser, setCurrentUser] = React.useState({});
 	const [cards, setCards] = React.useState([]);
-
 	const [loggedIn, setLoggedIn] = React.useState(false);
 	const [status, setStatus] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const history = useHistory();
-
-  React.useEffect(() => {
-    getToken();
-    // eslint-disable-next-line
-  }, []);
 
 	function handleCardLike(card) {
     const isLiked = card.likes.some(item => item._id === currentUser._id);
@@ -89,25 +83,50 @@ function App() {
       .catch((err) => console.log(`Что-то пошло не так :( ${err}`))
   }
 
-  React.useEffect(() => {
-    setIsLoading(true);
-    if (loggedIn) {
-      const jwt = localStorage.getItem('jwt')
-      const promises = [api.getUserInfo(), api.getInitialCards()];
-      Promise.all(promises)
-        .then((res) => {
-          const [userData, cardsList] = res;
-          setCurrentUser(userData)
-          setCards(cardsList);
-        })
+  function handleRegister(email, password) {
+    auth.register(email, password)
+      .then((data) => {
+        setEmail(data.email)
+        setStatus(true);
+        history.push('/sign-in');
+      })
+      .catch((err) => {
+        setStatus(false)
+        console.log(new Error(err.status))
+      })
+      .finally(() => {
+        setIsInfoTooltipPopupOpen(true)
+      })
+  }
+
+  function handleLogin(email, password) {
+    auth.authorize(email, password)
+      .then(data => {
+        localStorage.setItem('jwt', data.token)
+        setLoggedIn(true);
+        history.push('/');
+      })
+      .catch((err) => {
+        console.log(new Error(err.status))
+      })
+  }
+
+  function getToken() {
+    const jwt = localStorage.getItem('jwt')
+    if (jwt) {
       auth.checkToken(jwt)
         .then((res) => {
-        setEmail(res.data.email);
-      })
-      .catch((err) => console.log(`Что-то пошло не так :( ${err}`))
-      .finally(() => setIsLoading(false))
+          if (res) {
+            setLoggedIn(true);
+            setEmail(res.data.email);
+            history.push('/');
+          }
+        })
+        .catch((err) => {
+          console.log(new Error(err.status))
+        })
     }
-  }, [loggedIn])
+  }
 
 	function handleEditProfileClick() {
 		setIsEditProfilePopupOpen(true);
@@ -151,52 +170,31 @@ function App() {
     evt.stopPropagation();
   }
 
-  function handleRegister(email, password) {
-	  auth.register(email, password)
-      .then((data) => {
-        setEmail(data.email)
-        setStatus(true);
-        history.push('/sign-in');
-      })
-      .catch((err) => {
-        setStatus(false)
-        console.log(new Error(err.status))
-      })
-      .finally(() => {
-        setIsInfoTooltipPopupOpen(true)
-      })
-  }
-
-  function handleLogin(email, password) {
-    auth.authorize(email, password)
-      .then(data => {
-        localStorage.setItem('jwt', data.token)
-        setLoggedIn(true);
-        history.push('/');
-      })
-      .catch((err) => console.log(err))
-  }
-
   function handleLogout() {
     localStorage.removeItem('jwt');
     history.push('/sign-in');
     setLoggedIn(false);
   }
 
-  function getToken() {
-    const jwt = localStorage.getItem('jwt')
-    if (jwt) {
-      auth.checkToken(jwt).then((res) => {
-        if (res.data.email) {
-          setLoggedIn(true);
-          history.push('/');
-        }
-      })
-        .catch((err) => {
-          console.log(new Error(err.status))
+  React.useEffect(() => {
+    setIsLoading(true);
+    if (loggedIn) {
+      const promises = [api.getUserInfo(), api.getInitialCards()];
+      Promise.all(promises)
+        .then((res) => {
+          const [userData, cardsList] = res;
+          setCurrentUser(userData)
+          setCards(cardsList);
         })
+        .catch((err) => console.log(`Что-то пошло не так :( ${err}`))
+        .finally(() => setIsLoading(false))
     }
-  }
+  }, [loggedIn])
+
+  React.useEffect(() => {
+    getToken();
+    // eslint-disable-next-line
+  }, []);
 
   React.useEffect(() => {
     window.addEventListener('keydown', handleEscClick);
