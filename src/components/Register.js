@@ -15,10 +15,7 @@ function Register({ onRegister }) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onRegister({
-      email: email,
-      password: password
-    })
+    onRegister(email, password)
   }
 
   return (
@@ -32,6 +29,7 @@ function Register({ onRegister }) {
           type='email'
           placeholder='Email'
           onChange={handleEmailChange}
+          value={email || ''}
           required
         />
         <input
@@ -41,10 +39,11 @@ function Register({ onRegister }) {
           type='password'
           placeholder='Пароль'
           onChange={handlePasswordChange}
+          value={password || ''}
           required
         />
+        <button className='register__button' id='login__submit-button' type='submit'>Зарегистрироваться</button>
       </form>
-      <button className='register__button' id='login__submit-button' type='submit'>Зарегистрироваться</button>
       <p className='register__subtitle'>
         Уже зарегистрированы?&ensp;
         <Link to='/sign-in' className='register__link'>Войти</Link>

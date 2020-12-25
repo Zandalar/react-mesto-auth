@@ -33,6 +33,11 @@ function App() {
   const [email, setEmail] = React.useState('');
   const history = useHistory();
 
+  React.useEffect(() => {
+    getToken();
+    // eslint-disable-next-line
+  }, []);
+
 	function handleCardLike(card) {
     const isLiked = card.likes.some(item => item._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
@@ -86,16 +91,23 @@ function App() {
 
   React.useEffect(() => {
     setIsLoading(true);
-    const promises = [api.getUserInfo(), api.getInitialCards()];
-    Promise.all(promises)
-      .then((res) => {
-        const [userData, cardsList] = res;
-        setCurrentUser(userData)
-        setCards(cardsList);
+    if (loggedIn) {
+      const jwt = localStorage.getItem('jwt')
+      const promises = [api.getUserInfo(), api.getInitialCards()];
+      Promise.all(promises)
+        .then((res) => {
+          const [userData, cardsList] = res;
+          setCurrentUser(userData)
+          setCards(cardsList);
+        })
+      auth.checkToken(jwt)
+        .then((res) => {
+        setEmail(res.data.email);
       })
       .catch((err) => console.log(`Что-то пошло не так :( ${err}`))
       .finally(() => setIsLoading(false))
-  }, [])
+    }
+  }, [loggedIn])
 
 	function handleEditProfileClick() {
 		setIsEditProfilePopupOpen(true);
@@ -142,13 +154,9 @@ function App() {
   function handleRegister(email, password) {
 	  auth.register(email, password)
       .then((data) => {
-        setEmail({
-          email: data.email,
-        })
-        history.push('/sign-in');
-      })
-      .then(() => {
+        setEmail(data.email)
         setStatus(true);
+        history.push('/sign-in');
       })
       .catch((err) => {
         setStatus(false)
@@ -157,6 +165,37 @@ function App() {
       .finally(() => {
         setIsInfoTooltipPopupOpen(true)
       })
+  }
+
+  function handleLogin(email, password) {
+    auth.authorize(email, password)
+      .then(data => {
+        localStorage.setItem('jwt', data.token)
+        setLoggedIn(true);
+        history.push('/');
+      })
+      .catch((err) => console.log(err))
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('jwt');
+    history.push('/sign-in');
+    setLoggedIn(false);
+  }
+
+  function getToken() {
+    const jwt = localStorage.getItem('jwt')
+    if (jwt) {
+      auth.checkToken(jwt).then((res) => {
+        if (res.data.email) {
+          setLoggedIn(true);
+          history.push('/');
+        }
+      })
+        .catch((err) => {
+          console.log(new Error(err.status))
+        })
+    }
   }
 
   React.useEffect(() => {
@@ -170,7 +209,7 @@ function App() {
 	  <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="content">
-          <Header userEmail={email}/>
+          <Header userEmail={email} handleLogout={handleLogout} />
           <Switch>
             <Route exact path='/'>
               <ProtectedRoute
@@ -187,10 +226,10 @@ function App() {
               />
             </Route>
             <Route path='/sign-up'>
-              <Register onRegister={handleRegister}/>
+              <Register onRegister={handleRegister} />
             </Route>
             <Route path='/sign-in'>
-              <Login />
+              <Login onLogin={handleLogin} />
             </Route>
             <Route exact path='/'>
               { loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}

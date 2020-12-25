@@ -11,7 +11,7 @@ function InfoTooltip({ isOpen, onClose, isolatePopup, status }) {
             ? <img src={okLogo} alt='Успешно' className='popup__status' />
             : <img src={errorLogo} alt='Ошибка' className='popup__status' />
           }
-        <h2 className="popup__title">
+        <h2 className="popup__status-title">
           {status
             ? 'Вы успешно зарегистрировались!'
             : 'Что-то пошло не так! Попробуйте ещё раз.'

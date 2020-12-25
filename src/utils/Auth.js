@@ -8,7 +8,7 @@ export function checkAnswer(res) {
 }
 
 export function register(email, password) {
-  return fetch(`${BASE_URL}/sign-up`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -18,8 +18,8 @@ export function register(email, password) {
     .then(checkAnswer);
 }
 
-export function authorization(email, password) {
-  return fetch(`${BASE_URL}/sign-in`, {
+export function authorize(email, password) {
+  return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
