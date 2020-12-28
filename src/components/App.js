@@ -15,6 +15,7 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 import * as auth from '../utils/Auth';
+import NotFound from "./notFound";
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -246,6 +247,9 @@ function App() {
             </Route>
             <Route exact path='/'>
               { loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+            </Route>
+            <Route path="*">
+              <NotFound />
             </Route>
           </Switch>
           <Footer />

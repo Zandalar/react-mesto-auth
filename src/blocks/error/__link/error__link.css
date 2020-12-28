@@ -1,0 +1,12 @@
+.error__link {
+    padding: 10px 0;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: red;
+    text-decoration: none;
+    text-shadow: 0 0 20px #B22222;
+}
+
+.error__link:hover {
+    transform: translate(-10px);
+}

@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e192060-cf68-4a40-b97b-19d957788431" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/blocks/error/__link/error__link.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/blocks/error/__message/error__message.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/blocks/error/__number/error__number.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/blocks/error/__text/error__text.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/blocks/error/error.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/notFound.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vendor/fonts/__monoton/Monoton-Regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vendor/fonts/__monoton/Monoton-Regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vendor/fonts/__monoton/fonts__monoton.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_10_04__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_10_04__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blocks/register/__button/register__button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/register/__button/register__button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blocks/register/__form/register__form.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/register/__form/register__form.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditAvatarPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditAvatarPopup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InfoTooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InfoTooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -39,14 +51,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/vendor/fonts/__monoton" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ge0de\dev\react-mesto-auth\src\vendor\fonts\__monoton" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="js.build_tools.gulp">
@@ -55,17 +73,6 @@
       <gulpfile />
       <tasks />
       <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
-      <node-interpreter value="$APPLICATION_CONFIG_DIR$/node/node-v12.13.1-win-x64/node" />
-      <package-manager value="npm" />
       <envs />
       <method v="2" />
     </configuration>
@@ -79,8 +86,8 @@
       <option name="presentableId" value="Default" />
       <updated>1608827598435</updated>
       <workItem from="1608827599593" duration="519000" />
-      <workItem from="1608828122524" duration="2741000" />
-      <workItem from="1609138537089" duration="23317000" />
+      <workItem from="1608828122524" duration="2833000" />
+      <workItem from="1608912554922" duration="3640000" />
     </task>
     <servers />
   </component>
@@ -98,5 +105,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
