@@ -4,7 +4,7 @@ export function checkAnswer(res) {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(new Error(res.status))
+  return Promise.reject(res);
 }
 
 export function register(email, password) {

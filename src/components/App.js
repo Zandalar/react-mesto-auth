@@ -30,6 +30,7 @@ function App() {
 	const [loggedIn, setLoggedIn] = React.useState(false);
 	const [status, setStatus] = React.useState(false);
   const [email, setEmail] = React.useState('');
+  const [errorText, setErrorText] = React.useState('');
   const history = useHistory();
 
 	function handleCardLike(card) {
@@ -91,8 +92,12 @@ function App() {
         history.push('/sign-in');
       })
       .catch((err) => {
-        setStatus(false)
-        console.log(new Error(err.status))
+        setStatus(false);
+        if (err.status === 400) {
+          setErrorText('Некорректно заполнено одно из полей');
+        } else {
+          setErrorText(err.status);
+        }
       })
       .finally(() => {
         setIsInfoTooltipPopupOpen(true)
@@ -105,9 +110,18 @@ function App() {
         localStorage.setItem('jwt', data.token)
         setLoggedIn(true);
         history.push('/');
+        setStatus(true);
       })
       .catch((err) => {
-        console.log(new Error(err.status))
+        setStatus(false);
+        setIsInfoTooltipPopupOpen(true)
+        if (err.status === 400) {
+          setErrorText('Не передано одно из полей');
+        } else if (err.status === 401) {
+          setErrorText('Пользователь с email не найден');
+        } else {
+          setErrorText(err.status);
+        }
       })
   }
 
@@ -116,13 +130,14 @@ function App() {
     if (jwt) {
       auth.checkToken(jwt)
         .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            setEmail(res.data.email);
-            history.push('/');
-          }
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          history.push('/');
         })
         .catch((err) => {
+          if (err.status === 401) {
+            console.log('Токен не передан или передан не в том формате')
+          }
           console.log(new Error(err.status))
         })
     }
@@ -275,6 +290,7 @@ function App() {
             onClose={closeAllPopups}
             isolatePopup={isolatePopup}
             status={status}
+            errorText={errorText}
           />
         </div>
       </div>
