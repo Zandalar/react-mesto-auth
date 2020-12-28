@@ -8,6 +8,6 @@
 
 .popup__button-save_disabled:hover {
   opacity: .2;
-  transform: opacity 2s;
+  transition: opacity 2s;
   cursor: pointer;
 }

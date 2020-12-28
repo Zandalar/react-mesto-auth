@@ -1,75 +1,78 @@
 import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import Validator from '../utils/Validator';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePopup }) {
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const { values, errors, isValid, handleChange, resetForm } = Validator();
   const currentUser = React.useContext(CurrentUserContext);
-
-  function handleNameChange(evt) {
-    setName(evt.target.value);
-  }
-
-  function handleDescriptionChange(evt) {
-    setDescription(evt.target.value);
-  }
+  const name = React.useRef();
+  const about = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onUpdateUser({
-      name,
-      about: description,
+      name: name.current.value,
+      about: about.current.value
     });
   }
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+    resetForm();
+    setTimeout(() => {name.current.focus()}, 100)
+  }, [isOpen]);
 
   return (
     <PopupWithForm
       name='profile'
       title='Редактировать профиль'
-      buttonText={`${isLoading ? 'Сохранение...' : 'Сохранить'}`}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
       isolatePopup={isolatePopup}
     >
       <input
+        ref={name}
+        placeholder={currentUser.name}
         className="popup__field"
         id="profile__name"
         name="name"
         type="text"
-        value={name || ''}
+        value={values.name || ''}
         minLength="2"
         maxLength="40"
-        onChange={handleNameChange}
+        onChange={handleChange}
         required
       />
       <span
-        className="popup__field-error"
-        id="profile__name-error"
-      >
+        className="popup__field-error_active"
+        id="profile__name-error">
+        {errors.name || ''}
       </span>
       <input
+        ref={about}
+        placeholder={currentUser.about}
         className="popup__field"
         id="profile__description"
         name="about"
         type="text"
-        value={description || ''}
+        value={values.about || ''}
         minLength="2"
         maxLength="200"
-        onChange={handleDescriptionChange}
+        onChange={handleChange}
         required
       />
       <span
-        className="popup__field-error"
-        id="profile__description-error"
-      >
+        className="popup__field-error_active"
+        id="profile__description-error">
+        {errors.about || ''}
       </span>
+      <button
+        className={`popup__button-save ${!isValid && 'popup__button-save_disabled'}`}
+        id='profile__button-save'
+        type="submit">
+        {`${isLoading ? 'Сохранение...' : 'Сохранить'}`}
+      </button>
     </PopupWithForm>
   )
 }

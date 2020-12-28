@@ -13,12 +13,18 @@ function DeletionCardPopup({ isOpen, onClose, handleSubmit, card, isLoading, iso
     <PopupWithForm
       name='delete'
       title='Вы уверены?'
-      buttonText={`${isLoading ? 'Удаление...' : 'Да'}`}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={submitDeletion}
-      isolatePopup={isolatePopup}
-    />
+      isolatePopup={isolatePopup}>
+      <button
+        className="popup__button-save"
+        id='deletion__button-save'
+        type="submit">
+        {`${isLoading ? 'Удаление...' : 'Да'}`}
+      </button>
+    </PopupWithForm>
+
   )
 }
 

@@ -13,6 +13,13 @@
   padding: 0;
 }
 
+.popup__field::placeholder {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000;
+}
+
 @media all and (max-width: 600px) {
   .popup__field {
     margin: 20px 0 0;
