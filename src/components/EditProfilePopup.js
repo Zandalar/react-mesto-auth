@@ -45,7 +45,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePop
         required
       />
       <span
-        className="popup__field-error_active"
+        className="popup__field-error"
         id="profile__name-error">
         {errors.name || ''}
       </span>
@@ -63,7 +63,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePop
         required
       />
       <span
-        className="popup__field-error_active"
+        className="popup__field-error"
         id="profile__description-error">
         {errors.about || ''}
       </span>

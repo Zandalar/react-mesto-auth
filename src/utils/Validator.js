@@ -6,9 +6,9 @@ function Validator() {
   const [isValid, setIsValid] = React.useState(false);
 
   function handleChange(evt) {
-    setValues({...values, [evt.target.name]: evt.target.value});
-    setErrors({...errors, [evt.target.name]: evt.target.validationMessage });
-    setIsValid(evt.target.closest(".popup__form").checkValidity());
+    setValues({ ...values, [evt.target.name]: evt.target.value });
+    setErrors({ ...errors, [evt.target.name]: evt.target.validationMessage });
+    setIsValid(evt.target.closest('form').checkValidity());
   }
 
   function resetForm() {
@@ -16,8 +16,9 @@ function Validator() {
     setErrors({});
     setIsValid(false);
   }
-
-  return { values, errors, isValid, handleChange, resetForm };
+  return {
+    values, errors, isValid, handleChange, resetForm,
+  };
 }
 
 export default Validator;

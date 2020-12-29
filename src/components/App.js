@@ -86,11 +86,13 @@ function App() {
   }
 
   function handleRegister(email, password) {
+    setIsLoading(true);
     auth.register(email, password)
       .then((data) => {
         setEmail(data.email)
         setStatus(true);
         history.push('/sign-in');
+        setIsLoading(false);
       })
       .catch((err) => {
         setStatus(false);
@@ -101,17 +103,19 @@ function App() {
         }
       })
       .finally(() => {
-        setIsInfoTooltipPopupOpen(true)
+        setIsInfoTooltipPopupOpen(true);
       })
   }
 
   function handleLogin(email, password) {
+    setIsLoading(true);
     auth.authorize(email, password)
       .then(data => {
         localStorage.setItem('jwt', data.token)
         setLoggedIn(true);
         history.push('/');
         setStatus(true);
+        setIsLoading(false);
       })
       .catch((err) => {
         setStatus(false);
@@ -240,10 +244,10 @@ function App() {
               />
             </Route>
             <Route path='/sign-up'>
-              <Register onRegister={handleRegister} />
+              <Register onRegister={handleRegister} isLoading={isLoading} />
             </Route>
             <Route path='/sign-in'>
-              <Login onLogin={handleLogin} />
+              <Login onLogin={handleLogin} isLoading={isLoading} />
             </Route>
             <Route exact path='/'>
               { loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}

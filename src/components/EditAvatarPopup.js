@@ -40,7 +40,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading, isolatePo
         required
       />
       <span
-        className="popup__field-error_active"
+        className="popup__field-error"
         id="avatar__link-error">
         {errors.link || ''}
       </span>

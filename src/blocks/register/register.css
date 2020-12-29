@@ -4,6 +4,8 @@
 @import url(./__link/register__link.css);
 @import url(./__subtitle/register__subtitle.css);
 @import url(./__title/register__title.css);
+@import url(./__error/register__error.css);
+@import url(./__button/_disabled/register__button_disabled.css);
 
 .register {
   min-width: 358px;

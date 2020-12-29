@@ -45,7 +45,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, isolatePopup })
       required
     />
     <span
-      className="popup__field-error_active"
+      className="popup__field-error"
       id="place__name-error">
       {errors.name || ''}
     </span>
@@ -61,7 +61,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, isolatePopup })
       required
     />
     <span
-      className="popup__field-error_active"
+      className="popup__field-error"
       id="place__link-error">
       {errors.link || ''}
     </span>
