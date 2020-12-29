@@ -244,13 +244,21 @@ function App() {
               />
             </Route>
             <Route path='/sign-up'>
-              <Register onRegister={handleRegister} isLoading={isLoading} />
+              <Register
+                onRegister={handleRegister}
+                isLoading={isLoading}
+              />
             </Route>
             <Route path='/sign-in'>
-              <Login onLogin={handleLogin} isLoading={isLoading} />
+              <Login
+                onLogin={handleLogin}
+                isLoading={isLoading}
+              />
             </Route>
             <Route exact path='/'>
-              { loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+              { loggedIn
+                ? <Redirect to='/' />
+                : <Redirect to='/sign-in' />}
             </Route>
             <Route path="*">
               <NotFound />
