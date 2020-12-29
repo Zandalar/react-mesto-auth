@@ -12,9 +12,9 @@
 @import url(./__like-count/element__like-count.css);
 
 .element {
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
 }

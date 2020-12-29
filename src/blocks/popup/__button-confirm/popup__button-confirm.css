@@ -16,7 +16,7 @@
 
 .popup__button-confirm:hover {
   opacity: .8;
-  transform: opacity 2s;
+  transition: opacity .5s;
   cursor: pointer;
 }
 

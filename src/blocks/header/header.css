@@ -5,15 +5,15 @@
 @import url(./__logout/header__logout.css);
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 68.90625%;
-    border-bottom: 1px solid #545454;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 68.90625%;
+  border-bottom: 1px solid #545454;
 }
 
 @media all and (max-width: 600px) {
-    .header {
-        width: 100%;
-    }
+  .header {
+    width: 100%;
+  }
 }

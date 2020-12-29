@@ -1,5 +1,5 @@
 import React from 'react';
-import PopupWithForm from "./PopupWithForm";
+import PopupWithForm from './PopupWithForm';
 import Validator from '../utils/Validator';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading, isolatePopup }) {
@@ -30,24 +30,24 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading, isolatePo
     >
       <input
         ref={link}
-        className="popup__field"
-        id="avatar__link"
-        name="link"
-        type="url"
-        placeholder="Ссылка на картинку"
+        className='popup__field'
+        id='avatar__link'
+        name='link'
+        type='url'
+        placeholder='Ссылка на картинку'
         value={values.link || ''}
         onChange={handleChange}
         required
       />
       <span
-        className="popup__field-error"
-        id="avatar__link-error">
+        className='popup__field-error'
+        id='avatar__link-error'>
         {errors.link || ''}
       </span>
       <button
         className={`popup__button-save ${!isValid && 'popup__button-save_disabled'}`}
         id='avatar__button-save'
-        type="submit"
+        type='submit'
         disabled={!isValid}>
         {`${isLoading ? 'Сохранение...' : 'Сохранить'}`}
       </button>

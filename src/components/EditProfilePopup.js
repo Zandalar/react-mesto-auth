@@ -1,6 +1,6 @@
 import React from 'react';
-import PopupWithForm from "./PopupWithForm";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import PopupWithForm from './PopupWithForm';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Validator from '../utils/Validator';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePopup }) {
@@ -34,43 +34,43 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePop
       <input
         ref={name}
         placeholder={currentUser.name}
-        className="popup__field"
-        id="profile__name"
-        name="name"
-        type="text"
+        className='popup__field'
+        id='profile__name'
+        name='name'
+        type='text'
         value={values.name || ''}
-        minLength="2"
-        maxLength="40"
+        minLength='2'
+        maxLength='40'
         onChange={handleChange}
         required
       />
       <span
-        className="popup__field-error"
-        id="profile__name-error">
+        className='popup__field-error'
+        id='profile__name-error'>
         {errors.name || ''}
       </span>
       <input
         ref={about}
         placeholder={currentUser.about}
-        className="popup__field"
-        id="profile__description"
-        name="about"
-        type="text"
+        className='popup__field'
+        id='profile__description'
+        name='about'
+        type='text'
         value={values.about || ''}
-        minLength="2"
-        maxLength="200"
+        minLength='2'
+        maxLength='200'
         onChange={handleChange}
         required
       />
       <span
-        className="popup__field-error"
-        id="profile__description-error">
+        className='popup__field-error'
+        id='profile__description-error'>
         {errors.about || ''}
       </span>
       <button
         className={`popup__button-save ${!isValid && 'popup__button-save_disabled'}`}
         id='profile__button-save'
-        type="submit">
+        type='submit'>
         {`${isLoading ? 'Сохранение...' : 'Сохранить'}`}
       </button>
     </PopupWithForm>

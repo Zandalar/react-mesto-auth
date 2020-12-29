@@ -1,8 +1,8 @@
 .element__photo {
-    width: 282px;
-    height: 282px;
-    object-fit: cover;
-    object-position: top;
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+  object-position: top;
 }
 
 .element__photo:hover {

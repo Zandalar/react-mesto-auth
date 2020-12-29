@@ -36,8 +36,8 @@ function Register({ onRegister, isLoading }) {
           required
         />
         <span
-          className="register__error"
-          id="email__error">
+          className='register__error'
+          id='email__error'>
           {errors.email || ''}
         </span>
         <input
@@ -52,8 +52,8 @@ function Register({ onRegister, isLoading }) {
           required
         />
         <span
-          className="register__error"
-          id="password__error">
+          className='register__error'
+          id='password__error'>
           {errors.password || ''}
         </span>
         <button

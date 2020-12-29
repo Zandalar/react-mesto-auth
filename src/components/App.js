@@ -6,7 +6,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import EditProfilePopup from "./EditProfilePopup";
+import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeletionCardPopup from './DeletionCardPopup';
@@ -15,7 +15,7 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 import * as auth from '../utils/Auth';
-import NotFound from "./notFound";
+import NotFound from './notFound';
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -225,8 +225,8 @@ function App() {
 
 	return (
 	  <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <div className="content">
+      <div className='page'>
+        <div className='content'>
           <Header userEmail={email} handleLogout={handleLogout} />
           <Switch>
             <Route exact path='/'>
@@ -260,7 +260,7 @@ function App() {
                 ? <Redirect to='/' />
                 : <Redirect to='/sign-in' />}
             </Route>
-            <Route path="*">
+            <Route path='*'>
               <NotFound />
             </Route>
           </Switch>

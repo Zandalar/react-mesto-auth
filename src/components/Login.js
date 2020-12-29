@@ -35,8 +35,8 @@ function Login({ onLogin, isLoading }) {
           required
         />
         <span
-          className="login__error"
-          id="email__error">
+          className='login__error'
+          id='email__error'>
           {errors.email || ''}
         </span>
         <input
@@ -51,8 +51,8 @@ function Login({ onLogin, isLoading }) {
           required
         />
         <span
-          className="login__error"
-          id="email__error">
+          className='login__error'
+          id='email__error'>
           {errors.password || ''}
         </span>
         <button

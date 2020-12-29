@@ -1,0 +1,134 @@
+Index: src/components/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport { Route, Switch, Redirect, useHistory } from 'react-router-dom';\r\nimport { CurrentUserContext } from '../contexts/CurrentUserContext';\r\nimport api from '../utils/Api';\r\nimport Header from './Header';\r\nimport Main from './Main';\r\nimport Footer from './Footer';\r\nimport ImagePopup from './ImagePopup';\r\nimport EditProfilePopup from \"./EditProfilePopup\";\r\nimport EditAvatarPopup from './EditAvatarPopup';\r\nimport AddPlacePopup from './AddPlacePopup';\r\nimport DeletionCardPopup from './DeletionCardPopup';\r\nimport Login from './Login';\r\nimport Register from './Register';\r\nimport ProtectedRoute from './ProtectedRoute';\r\nimport InfoTooltip from './InfoTooltip';\r\nimport * as auth from '../utils/Auth';\r\nimport NotFound from \"./notFound\";\r\n\r\nfunction App() {\r\n\tconst [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);\r\n\tconst [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);\r\n\tconst [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);\r\n\tconst [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);\r\n\tconst [isDeletionCardPopupOpen, setIsDeletionCardPopupOpen] = React.useState(false);\r\n\tconst [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);\r\n  const [isLoading, setIsLoading] = React.useState(false);\r\n\tconst [selectedCard, setSelectedCard] = React.useState({});\r\n\tconst [currentUser, setCurrentUser] = React.useState({});\r\n\tconst [cards, setCards] = React.useState([]);\r\n\tconst [loggedIn, setLoggedIn] = React.useState(false);\r\n\tconst [status, setStatus] = React.useState(false);\r\n  const [email, setEmail] = React.useState('');\r\n  const [errorText, setErrorText] = React.useState('');\r\n  const history = useHistory();\r\n\r\n\tfunction handleCardLike(card) {\r\n    const isLiked = card.likes.some(item => item._id === currentUser._id);\r\n    api.changeLikeCardStatus(card._id, !isLiked)\r\n      .then((newCard) => {\r\n      const newCards = cards.map((data) => data._id === card._id ? newCard : data);\r\n      setCards(newCards);\r\n    })\r\n      .catch((err) => console.log(`Что-то пошло не так :( ${err}`))\r\n  }\r\n\r\n  function handleCardDelete(card) {\r\n    api.deleteCard(card._id).then(() => {\r\n      const newCards = cards.filter(item => item !== card);\r\n      setCards(newCards);\r\n    })\r\n      .catch((err) => console.log(`Что-то пошло не так :( ${err}`))\r\n  }\r\n\r\n  function handleUpdateUser(user) {\r\n\t  setIsLoading(true);\r\n    api.setUserInfo(user)\r\n      .then((res) => {\r\n        setCurrentUser(res);\r\n        setIsLoading(false);\r\n        closeAllPopups();\r\n      })\r\n      .catch((err) => console.log(`Что-то пошло не так :( ${err}`))\r\n  }\r\n\r\n  function handleUpdateAvatar(link) {\r\n    setIsLoading(true);\r\n    api.editAvatar(link)\r\n      .then((res) => {\r\n        setCurrentUser(res);\r\n        setIsLoading(false);\r\n        closeAllPopups();\r\n      })\r\n      .catch((err) => console.log(`Что-то пошло не так :( ${err}`))\r\n  }\r\n\r\n  function handleAddPlaceSubmit(data) {\r\n    setIsLoading(true);\r\n    api.setNewCard(data)\r\n      .then((res) => {\r\n        setCards([res, ...cards]);\r\n        setIsLoading(false);\r\n        closeAllPopups();\r\n      })\r\n      .catch((err) => console.log(`Что-то пошло не так :( ${err}`))\r\n  }\r\n\r\n  function handleRegister(email, password) {\r\n    auth.register(email, password)\r\n      .then((data) => {\r\n        setEmail(data.email)\r\n        setStatus(true);\r\n        history.push('/sign-in');\r\n      })\r\n      .catch((err) => {\r\n        setStatus(false);\r\n        if (err.status === 400) {\r\n          setErrorText('Некорректно заполнено одно из полей');\r\n        } else {\r\n          setErrorText(err.status);\r\n        }\r\n      })\r\n      .finally(() => {\r\n        setIsInfoTooltipPopupOpen(true)\r\n      })\r\n  }\r\n\r\n  function handleLogin(email, password) {\r\n    auth.authorize(email, password)\r\n      .then(data => {\r\n        localStorage.setItem('jwt', data.token)\r\n        setLoggedIn(true);\r\n        history.push('/');\r\n        setStatus(true);\r\n      })\r\n      .catch((err) => {\r\n        setStatus(false);\r\n        setIsInfoTooltipPopupOpen(true)\r\n        if (err.status === 400) {\r\n          setErrorText('Не передано одно из полей');\r\n        } else if (err.status === 401) {\r\n          setErrorText('Пользователь с email не найден');\r\n        } else {\r\n          setErrorText(err.status);\r\n        }\r\n      })\r\n  }\r\n\r\n  function getToken() {\r\n    const jwt = localStorage.getItem('jwt')\r\n    if (jwt) {\r\n      auth.checkToken(jwt)\r\n        .then((res) => {\r\n          setLoggedIn(true);\r\n          setEmail(res.data.email);\r\n          history.push('/');\r\n        })\r\n        .catch((err) => {\r\n          if (err.status === 401) {\r\n            console.log('Токен не передан или передан не в том формате')\r\n          }\r\n          console.log(new Error(err.status))\r\n        })\r\n    }\r\n  }\r\n\r\n\tfunction handleEditProfileClick() {\r\n\t\tsetIsEditProfilePopupOpen(true);\r\n\t}\r\n\r\n\tfunction handleAddPlaceClick() {\r\n\t\tsetIsAddPlacePopupOpen(true);\r\n\t}\r\n\r\n\tfunction handleEditAvatarClick() {\r\n\t\tsetIsEditAvatarPopupOpen(true);\r\n\t}\r\n\r\n\tfunction handleCardClick(data) {\r\n\t\tsetSelectedCard(data);\r\n\t\tsetIsImagePopupOpen(true);\r\n\t}\r\n\r\n  function handleDeletionCardClick(data) {\r\n    setSelectedCard(data);\r\n    setIsDeletionCardPopupOpen(true);\r\n  }\r\n\r\n  function handleEscClick(evt) {\r\n    if (evt.key === 'Escape') {\r\n      closeAllPopups();\r\n    }\r\n  }\r\n\r\n\tfunction closeAllPopups() {\r\n\t\tsetIsEditProfilePopupOpen(false);\r\n\t\tsetIsAddPlacePopupOpen(false);\r\n\t\tsetIsEditAvatarPopupOpen(false);\r\n    setIsImagePopupOpen(false);\r\n    setIsDeletionCardPopupOpen(false);\r\n    setIsInfoTooltipPopupOpen(false);\r\n\t\tsetSelectedCard({});\r\n\t}\r\n\r\n  function isolatePopup(evt) {\r\n    evt.stopPropagation();\r\n  }\r\n\r\n  function handleLogout() {\r\n    localStorage.removeItem('jwt');\r\n    history.push('/sign-in');\r\n    setLoggedIn(false);\r\n  }\r\n\r\n  React.useEffect(() => {\r\n    setIsLoading(true);\r\n    if (loggedIn) {\r\n      const promises = [api.getUserInfo(), api.getInitialCards()];\r\n      Promise.all(promises)\r\n        .then((res) => {\r\n          const [userData, cardsList] = res;\r\n          setCurrentUser(userData)\r\n          setCards(cardsList);\r\n        })\r\n        .catch((err) => console.log(`Что-то пошло не так :( ${err}`))\r\n        .finally(() => setIsLoading(false))\r\n    }\r\n  }, [loggedIn])\r\n\r\n  React.useEffect(() => {\r\n    getToken();\r\n    // eslint-disable-next-line\r\n  }, []);\r\n\r\n  React.useEffect(() => {\r\n    window.addEventListener('keydown', handleEscClick);\r\n    return () => {\r\n      window.removeEventListener('keydown', handleEscClick);\r\n    }\r\n  })\r\n\r\n\treturn (\r\n\t  <CurrentUserContext.Provider value={currentUser}>\r\n      <div className=\"page\">\r\n        <div className=\"content\">\r\n          <Header userEmail={email} handleLogout={handleLogout} />\r\n          <Switch>\r\n            <Route exact path='/'>\r\n              <ProtectedRoute\r\n              component={Main}\r\n              loggedIn={loggedIn}\r\n              cards={cards}\r\n              onCardLike={handleCardLike}\r\n              onCardDelete={handleDeletionCardClick}\r\n              onEditProfile={handleEditProfileClick}\r\n              onEditAvatar={handleEditAvatarClick}\r\n              onAddPlace={handleAddPlaceClick}\r\n              onCardClick={handleCardClick}\r\n              isLoading={isLoading}\r\n              />\r\n            </Route>\r\n            <Route path='/sign-up'>\r\n              <Register onRegister={handleRegister} />\r\n            </Route>\r\n            <Route path='/sign-in'>\r\n              <Login onLogin={handleLogin} />\r\n            </Route>\r\n            <Route exact path='/'>\r\n              { loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}\r\n            </Route>\r\n            <Route path=\"*\">\r\n              <NotFound />\r\n            </Route>\r\n          </Switch>\r\n          <Footer />\r\n          <EditProfilePopup\r\n            isOpen={isEditProfilePopupOpen}\r\n            onClose={closeAllPopups}\r\n            onUpdateUser={handleUpdateUser}\r\n            isLoading={isLoading}\r\n            isolatePopup={isolatePopup}\r\n          />\r\n          <AddPlacePopup\r\n            isOpen={isAddPlacePopupOpen}\r\n            onClose={closeAllPopups}\r\n            onAddPlace={handleAddPlaceSubmit}\r\n            isLoading={isLoading}\r\n            isolatePopup={isolatePopup}\r\n          />\r\n          <EditAvatarPopup\r\n            isOpen={isEditAvatarPopupOpen}\r\n            onClose={closeAllPopups}\r\n            onUpdateAvatar={handleUpdateAvatar}\r\n            isLoading={isLoading}\r\n            isolatePopup={isolatePopup}\r\n          />\r\n          <ImagePopup\r\n            name='image'\r\n            data={selectedCard}\r\n            onClose={closeAllPopups}\r\n            isOpen={isImagePopupOpen}\r\n            isolatePopup={isolatePopup}\r\n          />\r\n          <DeletionCardPopup\r\n            isOpen={isDeletionCardPopupOpen}\r\n            onClose={closeAllPopups}\r\n            handleSubmit={handleCardDelete}\r\n            card={selectedCard}\r\n            isLoading={isLoading}\r\n            isolatePopup={isolatePopup}\r\n          />\r\n          <InfoTooltip\r\n            isOpen={isInfoTooltipPopupOpen}\r\n            onClose={closeAllPopups}\r\n            isolatePopup={isolatePopup}\r\n            status={status}\r\n            errorText={errorText}\r\n          />\r\n        </div>\r\n      </div>\r\n    </CurrentUserContext.Provider>\r\n\t);\r\n}\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/App.js b/src/components/App.js
+--- a/src/components/App.js	(revision 0d6fff06b9ac1583e64645c1d538d68754179fc1)
++++ b/src/components/App.js	(date 1609269591306)
+@@ -248,7 +248,7 @@
+             <Route exact path='/'>
+               { loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+             </Route>
+-            <Route path="*">
++            <Route path='*'>
+               <NotFound />
+             </Route>
+           </Switch>
+Index: .idea/codeStyles/Project.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/codeStyles/Project.xml b/.idea/codeStyles/Project.xml
+new file mode 100644
+--- /dev/null	(date 1609269331802)
++++ b/.idea/codeStyles/Project.xml	(date 1609269331802)
+@@ -0,0 +1,26 @@
++<component name="ProjectCodeStyleConfiguration">
++  <code_scheme name="Project" version="173">
++    <CssCodeStyleSettings>
++      <option name="USE_DOUBLE_QUOTES" value="false" />
++    </CssCodeStyleSettings>
++    <JSCodeStyleSettings version="0">
++      <option name="FILE_NAME_STYLE" value="CAMEL_CASE" />
++      <option name="USE_DOUBLE_QUOTES" value="false" />
++      <option name="FORCE_QUOTE_STYlE" value="true" />
++    </JSCodeStyleSettings>
++    <codeStyleSettings language="CSS">
++      <indentOptions>
++        <option name="INDENT_SIZE" value="2" />
++        <option name="CONTINUATION_INDENT_SIZE" value="2" />
++        <option name="TAB_SIZE" value="2" />
++      </indentOptions>
++    </codeStyleSettings>
++    <codeStyleSettings language="JavaScript">
++      <indentOptions>
++        <option name="INDENT_SIZE" value="2" />
++        <option name="CONTINUATION_INDENT_SIZE" value="2" />
++        <option name="TAB_SIZE" value="2" />
++      </indentOptions>
++    </codeStyleSettings>
++  </code_scheme>
++</component>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"5e192060-cf68-4a40-b97b-19d957788431\" name=\"Default Changelist\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/blocks/error/__link/error__link.css\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/blocks/error/__message/error__message.css\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/blocks/error/__number/error__number.css\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/blocks/error/__text/error__text.css\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/blocks/error/error.css\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/components/notFound.js\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/vendor/fonts/__monoton/Monoton-Regular.woff\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/vendor/fonts/__monoton/Monoton-Regular.woff2\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/vendor/fonts/__monoton/fonts__monoton.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_10_04__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_10_04__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/blocks/register/__button/register__button.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/blocks/register/__button/register__button.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/blocks/register/__form/register__form.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/blocks/register/__form/register__form.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/index.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/index.css\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaScript File\" />\r\n        <option value=\"CSS File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"ROOT_SYNC\" value=\"DONT_SYNC\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1m6wxzKgyu3dwPM57D56idkFPHe\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"ASKED_ADD_EXTERNAL_FILES\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"js.buildTools.gulp.gulp_package_dir\" value=\"\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/src/vendor/fonts/__monoton\" />\r\n    <property name=\"list.type.of.created.stylesheet\" value=\"CSS\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\ge0de\\dev\\react-mesto-auth\\src\\vendor\\fonts\\__monoton\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration default=\"true\" type=\"js.build_tools.gulp\">\r\n      <node-interpreter>project</node-interpreter>\r\n      <node-options />\r\n      <gulpfile />\r\n      <tasks />\r\n      <arguments />\r\n      <envs />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"5e192060-cf68-4a40-b97b-19d957788431\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1608827598435</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1608827598435</updated>\r\n      <workItem from=\"1608827599593\" duration=\"519000\" />\r\n      <workItem from=\"1608828122524\" duration=\"2833000\" />\r\n      <workItem from=\"1608912554922\" duration=\"3640000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 0d6fff06b9ac1583e64645c1d538d68754179fc1)
++++ b/.idea/workspace.xml	(date 1609269517066)
+@@ -2,23 +2,9 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="5e192060-cf68-4a40-b97b-19d957788431" name="Default Changelist" comment="">
+-      <change afterPath="$PROJECT_DIR$/src/blocks/error/__link/error__link.css" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/blocks/error/__message/error__message.css" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/blocks/error/__number/error__number.css" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/blocks/error/__text/error__text.css" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/blocks/error/error.css" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/components/notFound.js" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/vendor/fonts/__monoton/Monoton-Regular.woff" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/vendor/fonts/__monoton/Monoton-Regular.woff2" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/vendor/fonts/__monoton/fonts__monoton.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_10_04__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_10_04__Default_Changelist_.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/blocks/register/__button/register__button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/register/__button/register__button.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/blocks/register/__form/register__form.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/register/__form/register__form.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -52,13 +38,16 @@
+   </component>
+   <component name="PropertiesComponent">
+     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
++    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
++    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/vendor/fonts/__monoton" />
+     <property name="list.type.of.created.stylesheet" value="CSS" />
+     <property name="nodejs_package_manager_path" value="npm" />
++    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+     <property name="vue.rearranger.settings.migration" value="true" />
+   </component>
+   <component name="RecentsManager">
+@@ -88,6 +77,8 @@
+       <workItem from="1608827599593" duration="519000" />
+       <workItem from="1608828122524" duration="2833000" />
+       <workItem from="1608912554922" duration="3640000" />
++      <workItem from="1609268898292" duration="16000" />
++      <workItem from="1609268948358" duration="564000" />
+     </task>
+     <servers />
+   </component>
+Index: .idea/codeStyles/codeStyleConfig.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/codeStyles/codeStyleConfig.xml b/.idea/codeStyles/codeStyleConfig.xml
+new file mode 100644
+--- /dev/null	(date 1609269492548)
++++ b/.idea/codeStyles/codeStyleConfig.xml	(date 1609269492548)
+@@ -0,0 +1,5 @@
++<component name="ProjectCodeStyleConfiguration">
++  <state>
++    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default" />
++  </state>
++</component>
+\ No newline at end of file
