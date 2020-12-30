@@ -1,0 +1,17 @@
+.header__menu {
+  display: flex;
+  width: 24px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+@media all and (min-width: 600px) {
+  .header__menu {
+    display: none;
+  }
+}

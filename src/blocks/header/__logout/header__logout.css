@@ -14,3 +14,9 @@
   transition: opacity .2s;
   cursor: pointer;
 }
+
+@media all and (max-width: 600px) {
+  .header__logout{
+    display: none;
+  }
+}

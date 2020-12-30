@@ -16,6 +16,7 @@ import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 import * as auth from '../utils/Auth';
 import NotFound from './notFound';
+import MenuMobile from './MenuMobile';
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -24,6 +25,7 @@ function App() {
 	const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
 	const [isDeletionCardPopupOpen, setIsDeletionCardPopupOpen] = React.useState(false);
 	const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
+	const [isMobileMenuOpened, setIsMobileMenuOpened] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 	const [selectedCard, setSelectedCard] = React.useState({});
 	const [currentUser, setCurrentUser] = React.useState({});
@@ -170,6 +172,12 @@ function App() {
     setIsDeletionCardPopupOpen(true);
   }
 
+  function handleMenuClick() {
+	  isMobileMenuOpened
+      ? setIsMobileMenuOpened(false)
+      : setIsMobileMenuOpened(true);
+  }
+
   function handleEscClick(evt) {
     if (evt.key === 'Escape') {
       closeAllPopups();
@@ -227,7 +235,8 @@ function App() {
 	  <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <div className='content'>
-          <Header userEmail={email} handleLogout={handleLogout} />
+          {isMobileMenuOpened && <MenuMobile userEmail={email} handleLogout={handleLogout} />}
+          <Header userEmail={email} handleLogout={handleLogout} handleMenuClick={handleMenuClick} />
           <Switch>
             <Route exact path='/'>
               <ProtectedRoute

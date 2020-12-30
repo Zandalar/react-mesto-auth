@@ -16,3 +16,9 @@
   margin: 0;
   padding: 60px 0 80px;
 }
+
+@media all and (max-width: 600px) {
+  .register {
+    min-width: 100%;
+  }
+}

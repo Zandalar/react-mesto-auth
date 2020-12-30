@@ -3,17 +3,22 @@
 @import url(./__email/header__email.css);
 @import url(./__user-info/header__user-info.css);
 @import url(./__logout/header__logout.css);
+@import url(./__menu/header__menu.css);
+@import url(./__image/header__image.css);
 
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   width: 68.90625%;
+  padding: 0 0 41px;
   border-bottom: 1px solid #545454;
+  box-sizing: border-box;
 }
 
 @media all and (max-width: 600px) {
   .header {
     width: 100%;
+    padding: 0 30px 32px;
   }
 }

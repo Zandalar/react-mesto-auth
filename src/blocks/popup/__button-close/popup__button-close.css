@@ -11,20 +11,21 @@
   border: none;
   padding: 0;
   outline: none;
-  transition: all .5s ease;
 }
 
 .popup__button-close:hover {
   opacity: .6;
   cursor: pointer;
-  transform: rotate(360deg);
+  transform: translateX(50%);
+  transition: opacity .5s;
 }
 
 @media all and (max-width: 600px) {
   .popup__button-close {
     background-image: url(../../../images/button__close_small.svg);
-    top: -30px;
-    right: -30px;
+    top: -15%;
+    right: 50%;
+    transform: translateX(50%);
     width: 30px;
     height: 30px;
   }

@@ -1,0 +1,10 @@
+@import url(./__logout/menu__logout.css);
+@import url(./__email/menu__email.css);
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -3,3 +3,9 @@
   height: 120px;
   padding: 24px 0 32px;
 }
+
+@media all and (max-width: 600px) {
+  .popup__status {
+    padding: 20px 0 40px;
+  }
+}
