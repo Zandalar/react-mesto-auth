@@ -111,6 +111,7 @@ function App() {
 
   function handleLogin(email, password) {
     setIsLoading(true);
+    setIsMobileMenuOpened(false);
     auth.authorize(email, password)
       .then(data => {
         localStorage.setItem('jwt', data.token)
@@ -235,8 +236,8 @@ function App() {
 	  <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <div className='content'>
-          {isMobileMenuOpened && <MenuMobile userEmail={email} handleLogout={handleLogout} />}
-          <Header userEmail={email} handleLogout={handleLogout} handleMenuClick={handleMenuClick} />
+          {isMobileMenuOpened && loggedIn && <MenuMobile userEmail={email} handleLogout={handleLogout} />}
+          <Header userEmail={email} handleLogout={handleLogout} handleMenuClick={handleMenuClick}  isMenuOpened={isMobileMenuOpened} />
           <Switch>
             <Route exact path='/'>
               <ProtectedRoute

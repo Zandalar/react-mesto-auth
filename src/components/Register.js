@@ -17,7 +17,7 @@ function Register({ onRegister, isLoading }) {
 
   React.useEffect(() => {
     resetForm();
-    setTimeout(() => {email.current.focus()}, 100)
+    setTimeout(() => {email.current.focus()}, 0)
   }, []);
 
   return (

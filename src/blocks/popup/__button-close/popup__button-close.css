@@ -11,6 +11,7 @@
   border: none;
   padding: 0;
   outline: none;
+  transform: translateX(50%);
 }
 
 .popup__button-close:hover {
@@ -22,7 +23,7 @@
 
 @media all and (max-width: 600px) {
   .popup__button-close {
-    background-image: url(../../../images/button__close_small.svg);
+    background-image: url(../../../images/button__close.svg);
     top: -15%;
     right: 50%;
     transform: translateX(50%);

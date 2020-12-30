@@ -19,7 +19,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, isolatePopup })
     title.current.value = '';
     link.current.value = '';
     resetForm();
-    setTimeout(() => { title.current.focus() }, 100)
+    setTimeout(() => { title.current.focus() }, 0)
   }, [isOpen]);
 
   return (

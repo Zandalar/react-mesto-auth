@@ -19,7 +19,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePop
 
   React.useEffect(() => {
     resetForm();
-    setTimeout(() => {name.current.focus()}, 100)
+    setTimeout(() => {name.current.focus()}, 0)
   }, [isOpen]);
 
   return (

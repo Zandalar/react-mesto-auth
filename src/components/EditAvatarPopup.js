@@ -16,7 +16,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading, isolatePo
   React.useEffect(() => {
     link.current.value = '';
     resetForm();
-    setTimeout(() => {link.current.focus()}, 100)
+    setTimeout(() => {link.current.focus()}, 0)
   }, [isOpen]);
 
   return (

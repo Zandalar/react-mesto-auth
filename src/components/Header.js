@@ -2,8 +2,10 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import logo from '../images/header__logo.svg';
 import menuImage from '../images/button__menu.svg';
+import closeImage from '../images/button__close.svg'
 
-function Header({ userEmail, handleLogout, handleMenuClick }) {
+function Header({ userEmail, handleLogout, handleMenuClick, isMenuOpened }) {
+
   return (
     <header className='header'>
       <img className='header__logo' src={logo} alt='Логотип сайта' />
@@ -16,8 +18,21 @@ function Header({ userEmail, handleLogout, handleMenuClick }) {
         </Route>
         <Route exact path='/'>
           <p className='header__email'>{userEmail}</p>
-          <button onClick={handleLogout} className='header__logout'>Выйти</button>
-          <button onClick={handleMenuClick} className='header__menu'><img className='header__image' src={menuImage} alt='Menu'/></button>
+          <button
+            onClick={handleLogout}
+            className='header__logout'
+            type='button'>
+            Выйти
+          </button>
+          <button
+            onClick={handleMenuClick}
+            className='header__menu'
+            type='button'>
+            <img
+              className='header__image'
+              src={isMenuOpened ? closeImage : menuImage}
+              alt='Menu'/>
+          </button>
         </Route>
       </div>
     </header>
