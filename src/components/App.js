@@ -99,6 +99,7 @@ function App() {
       .catch((err) => {
         setStatus(false);
         if (err.status === 400) {
+          console.log(err);
           setErrorText('Некорректно заполнено одно из полей');
         } else {
           setErrorText(err.status);
@@ -126,7 +127,7 @@ function App() {
         if (err.status === 400) {
           setErrorText('Не передано одно из полей');
         } else if (err.status === 401) {
-          setErrorText('Пользователь с email не найден');
+          setErrorText('Пользователь не найден, либо неверно указаны данные.');
         } else {
           setErrorText(err.status);
         }

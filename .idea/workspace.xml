@@ -2,35 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e192060-cf68-4a40-b97b-19d957788431" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/images/button__cross.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_10_04__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_10_04__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_22_06__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_12_2020_22_06__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_12_2020_22_20__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_12_2020_22_20__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_12_2020_9_12__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_12_2020_9_12__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_12_2020_10_38__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_12_2020_10_38__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/content/content.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/content/content.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/footer/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/footer/footer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/header/__email/header__email.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/header/__email/header__email.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/header/__menu/header__menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/header/__menu/header__menu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/header/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/header/header.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/menu/__email/menu__email.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/menu/__email/menu__email.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/menu/__logout/menu__logout.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/menu/__logout/menu__logout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/menu/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/menu/menu.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/blocks/popup/__button-close/popup__button-close.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__button-close/popup__button-close.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/popup/__button-confirm/popup__button-confirm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__button-confirm/popup__button-confirm.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/popup/__button-save/popup__button-save.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__button-save/popup__button-save.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/popup/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/popup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddPlacePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddPlacePopup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditAvatarPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditAvatarPopup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditProfilePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditProfilePopup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/images/button__close_small.svg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +52,9 @@
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/vendor/fonts/__monoton" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -108,6 +85,7 @@
       <workItem from="1608827599593" duration="519000" />
       <workItem from="1608828122524" duration="2833000" />
       <workItem from="1608912554922" duration="3640000" />
+      <workItem from="1609399065635" duration="1854000" />
     </task>
     <servers />
   </component>
