@@ -1,22 +1,21 @@
 import React from 'react';
-import Validator from '../utils/Validator';
+import UseValidator from '../hooks/useValidator';
 
 function Login({ onLogin, isLoading }) {
-  const { values, errors, isValid, handleChange, resetForm } = Validator();
-  const email = React.useRef();
-  const password = React.useRef();
+  const { values, errors, isValid, handleChange, resetForm } = UseValidator();
+  const focus = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onLogin(
-      email.current.value,
-      password.current.value
+      values.email,
+      values.password
     )
   }
 
   React.useEffect(() => {
     resetForm();
-    setTimeout(() => {email.current.focus()}, 0)
+    setTimeout(() => {focus.current.focus()}, 0)
   }, []);
 
   return (
@@ -24,7 +23,7 @@ function Login({ onLogin, isLoading }) {
       <h2 className='login__title'>Вход</h2>
       <form className='login__form' onSubmit={handleSubmit}>
         <input
-          ref={email}
+          ref={focus}
           className='login__input'
           id='login__email'
           name='email'
@@ -40,7 +39,6 @@ function Login({ onLogin, isLoading }) {
           {errors.email || ''}
         </span>
         <input
-          ref={password}
           className='login__input'
           id='login__password'
           name='password'

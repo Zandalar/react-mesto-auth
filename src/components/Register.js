@@ -1,23 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Validator from '../utils/Validator';
+import UseValidator from '../hooks/useValidator';
 
 function Register({ onRegister, isLoading }) {
-  const { values, errors, isValid, handleChange, resetForm } = Validator();
-  const email = React.useRef();
-  const password = React.useRef();
+  const { values, errors, isValid, handleChange, resetForm } = UseValidator();
+  const focus = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onRegister(
-      email.current.value,
-      password.current.value
+      values.email,
+      values.password
     )
   }
 
   React.useEffect(() => {
     resetForm();
-    setTimeout(() => {email.current.focus()}, 0)
+    setTimeout(() => {focus.current.focus()}, 0)
   }, []);
 
   return (
@@ -25,7 +24,7 @@ function Register({ onRegister, isLoading }) {
       <h2 className='register__title'>Регистрация</h2>
       <form className='register__form' onSubmit={ handleSubmit }>
         <input
-          ref={email}
+          ref={focus}
           className='register__input'
           id='register__email'
           name='email'
@@ -41,7 +40,6 @@ function Register({ onRegister, isLoading }) {
           {errors.email || ''}
         </span>
         <input
-          ref={password}
           className='register__input'
           id='register__password'
           name='password'

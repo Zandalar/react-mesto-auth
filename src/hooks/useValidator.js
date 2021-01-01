@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Validator() {
+function UseValidator() {
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
@@ -21,4 +21,4 @@ function Validator() {
   };
 }
 
-export default Validator;
+export default UseValidator;

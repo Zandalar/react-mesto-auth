@@ -1,25 +1,22 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import Validator from '../utils/Validator';
+import UseValidator from '../hooks/useValidator';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, isolatePopup }) {
-  const { values, errors, isValid, handleChange, resetForm } = Validator();
-  const title = React.useRef();
-  const link = React.useRef();
+  const { values, errors, isValid, handleChange, resetForm } = UseValidator();
+  const focus = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onAddPlace({
-      name: title.current.value,
-      link: link.current.value
+      name: values.name,
+      link: values.link
     });
   }
 
   React.useEffect(() => {
-    title.current.value = '';
-    link.current.value = '';
     resetForm();
-    setTimeout(() => { title.current.focus() }, 0)
+    setTimeout(() => { focus.current.focus() }, 100)
   }, [isOpen]);
 
   return (
@@ -32,7 +29,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, isolatePopup })
       isolatePopup={isolatePopup}
     >
     <input
-      ref={title}
+      ref={focus}
       className='popup__field'
       id='place__name'
       name='name'
@@ -40,7 +37,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, isolatePopup })
       placeholder='Название'
       minLength='2'
       maxLength='30'
-      value={values.title}
+      value={values.name || ''}
       onChange={handleChange}
       required
     />
@@ -50,7 +47,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, isolatePopup })
       {errors.name || ''}
     </span>
     <input
-      ref={link}
       className='popup__field'
       id='place__link'
       name='link'

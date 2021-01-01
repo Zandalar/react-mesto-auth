@@ -1,26 +1,29 @@
 import React from 'react';
-import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import Validator from '../utils/Validator';
+import PopupWithForm from './PopupWithForm';
+import UseValidator from '../hooks/useValidator';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePopup }) {
-  const { values, errors, isValid, handleChange, resetForm } = Validator();
+  const { values, errors, isValid, handleChange } = UseValidator();
   const currentUser = React.useContext(CurrentUserContext);
-  const name = React.useRef();
-  const about = React.useRef();
+  const focus = React.useRef();
+
+  React.useEffect(() => {
+    setTimeout(() => { focus.current.focus() }, 100)
+  }, [isOpen]);
+
+  React.useEffect(() => {
+    values.name = currentUser.name;
+    values.about = currentUser.about;
+  }, [currentUser]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onUpdateUser({
-      name: name.current.value,
-      about: about.current.value
+      name: values.name,
+      about: values.about,
     });
   }
-
-  React.useEffect(() => {
-    resetForm();
-    setTimeout(() => {name.current.focus()}, 0)
-  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -32,8 +35,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePop
       isolatePopup={isolatePopup}
     >
       <input
-        ref={name}
-        placeholder={currentUser.name}
+        ref={focus}
         className='popup__field'
         id='profile__name'
         name='name'
@@ -50,8 +52,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePop
         {errors.name || ''}
       </span>
       <input
-        ref={about}
-        placeholder={currentUser.about}
         className='popup__field'
         id='profile__description'
         name='about'

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import api from '../utils/Api';
+import api from '../utils/api';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -99,7 +99,6 @@ function App() {
       .catch((err) => {
         setStatus(false);
         if (err.status === 400) {
-          console.log(err);
           setErrorText('Некорректно заполнено одно из полей');
         } else {
           setErrorText(err.status);

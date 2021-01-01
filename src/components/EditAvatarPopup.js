@@ -1,22 +1,21 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import Validator from '../utils/Validator';
+import UseValidator from '../hooks/useValidator';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading, isolatePopup }) {
-  const {values, errors, isValid, handleChange, resetForm} = Validator();
-  const link = React.useRef();
+  const {values, errors, isValid, handleChange, resetForm} = UseValidator();
+  const focus = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onUpdateAvatar({
-      avatar: link.current.value
+      avatar: values.link
     });
   }
 
   React.useEffect(() => {
-    link.current.value = '';
     resetForm();
-    setTimeout(() => {link.current.focus()}, 0)
+    setTimeout(() => {focus.current.focus()}, 100)
   }, [isOpen]);
 
   return (
@@ -29,7 +28,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading, isolatePo
       isolatePopup={isolatePopup}
     >
       <input
-        ref={link}
+        ref={focus}
         className='popup__field'
         id='avatar__link'
         name='link'
