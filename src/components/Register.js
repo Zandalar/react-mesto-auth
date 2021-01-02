@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UseValidator from '../hooks/useValidator';
+import useValidator from '../hooks/useValidator';
 
 function Register({ onRegister, isLoading }) {
-  const { values, errors, isValid, handleChange, resetForm } = UseValidator();
+  const { values, errors, isValid, handleChange, resetForm } = useValidator();
   const focus = React.useRef();
 
   function handleSubmit(evt) {

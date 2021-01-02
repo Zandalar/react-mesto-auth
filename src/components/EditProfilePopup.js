@@ -1,10 +1,10 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
-import UseValidator from '../hooks/useValidator';
+import useValidator from '../hooks/useValidator';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, isolatePopup }) {
-  const { values, errors, isValid, handleChange } = UseValidator();
+  const { values, errors, isValid, handleChange } = useValidator();
   const currentUser = React.useContext(CurrentUserContext);
   const focus = React.useRef();
 

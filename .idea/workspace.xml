@@ -2,19 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e192060-cf68-4a40-b97b-19d957788431" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_9_43__Default_Changelist_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_12_2020_19_09__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddPlacePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddPlacePopup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/EditAvatarPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditAvatarPopup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/EditProfilePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditProfilePopup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Preloader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Preloader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useValidator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useValidator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useValidator.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +56,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mesto-react" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../express-mesto" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -100,7 +96,9 @@
       <workItem from="1608828122524" duration="2833000" />
       <workItem from="1608912554922" duration="3640000" />
       <workItem from="1609399065635" duration="2539000" />
-      <workItem from="1609486749914" duration="9325000" />
+      <workItem from="1609486749914" duration="10876000" />
+      <workItem from="1609509013694" duration="593000" />
+      <workItem from="1609571628428" duration="103000" />
     </task>
     <servers />
   </component>
